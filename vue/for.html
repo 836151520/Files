@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h3 v-show="isLogin">{{username}}</h3>
+        <button @click="hide">点击试试</button>
+        <ul>
+            <li v-for="aa in news">
+                <h3>{{aa.title}}</h3>
+                <p>{{aa.time}}</p>
+                <p>{{aa.content}}</p>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el:"#app",
+            data:{
+                isLogin:false,
+                username:"陈桦烽11<a href='#'>dwff</a>",
+                news:[
+                    {
+                        title:"这是新闻标题",
+                        time:"事件",
+                        content:"dawfwfawfwe"
+                    },
+                    {
+                        title:"这是新闻标题",
+                        time:"事件",
+                        content:"dawfwfawfwe"
+                    },
+                    {
+                        title:"这是新闻标题",
+                        time:"事件",
+                        content:"dawfwfawfwe"
+                    }
+                ]
+            },
+            // 方法、事件必须写在methods里面
+            methods:{
+                hide:function(){
+                    this.isLogin = !this.isLogin;
+                }
+            }
+        })
+
+
+    </script>
+</body>
+</html>

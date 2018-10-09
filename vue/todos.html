@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="index.css">
+  <script src="vue.js"></script>
+</head>
+
+<body>
+  <div class="page-top">
+    <div class="page-content">
+      <h2>任务计划列表</h2>
+    </div>
+  </div>
+  <div class="main"  id="todolist">
+    <h3 class="big-title">添加任务：</h3>
+    <input placeholder="例如：吃饭睡觉打豆豆；    提示：+回车即可添加任务" class="task-input" type="text" @keyup.enter="add" v-model="addInp"/>
+    <ul class="task-count">
+      <li>{{num}}个任务未完成</li>
+      <li class="action">
+        <a :class="{active:state==3}" href="#" @click="change(3)">所有任务</a>
+        <a :class="{active:state==1}" href="#" @click="change(1)">未完成的任务</a>
+        <a :class="{active:state==2}" href="#" @click="change(2)">完成的任务</a>
+      </li>
+    </ul>
+    <h3 class="big-title">任务列表：</h3>
+    <div class="tasks">
+
+      <span class="no-task-tip">还没有添加任何任务</span>
+      <ul class="todo-list">
+        <li class="todo" v-for="(item,index) in newList" :class="{completed:item.isCompleat,editing:index==editingIndex}" @dblclick="addEdit(index)" @keyup.esc="goback(index)">
+          <div class="view">
+            <input type="checkbox" class="toggle" v-model="item.isCompleat"/>
+            <label >{{item.title}}</label>
+            <button class="destroy" @click="del(index)"></button>
+          </div>
+          <input type="text" class="edit" v-model = "item.title" @keyup.enter="endEdit" @blur="endEdit">
+        </li>
+      </ul>
+    </div>
+  </div>
+  <script>
+  // let list = [
+  //   {
+  //     title:"我想这周吧vue学会",
+  //     isCompleat:false
+  //   },
+  //   {
+  //     title:"下半年我想五松山",
+  //     isCompleat:true
+  //   }
+  // ];
+    var storage = {
+      //存
+      save:function(key,val){
+        return localStorage.setItem(key,JSON.stringify(val));
+      },
+      get:function(key){
+        return JSON.parse(localStorage.getItem(key)) || [];
+      }
+    }
+    var app = new Vue({
+      el:"#todolist",
+      data:{
+        //添加文本框的数据
+        addInp:"",
+        listItem: storage.get("list"),
+        //当前正在编辑的那一条的下标
+        editingIndex:Number,
+        //记录编辑之前的数据
+        beforeEdit:"",
+        //状态
+        state:3,
+      },
+
+      computed:{
+        num:function(){
+          //完成的时候  isCompleat true
+          return this.listItem.filter(function(item){
+            return !item.isCompleat
+          }).length;
+        },
+        newList:function(){
+          if(this.state ==1){
+            //返回未完成的列表
+            return this.listItem.filter(item => !item.isCompleat);
+          }else if(this.state ==2){
+            //返回完成的列表
+            return this.listItem.filter(item => item.isCompleat);
+          }else{
+            //返回所有
+            return this.listItem;
+          }
+        }
+
+      },
+      watch:{
+        listItem:function(){
+          storage.save("list",this.listItem);
+        }
+      },
+      methods:{
+        //添加列表
+        add:function(){
+          this.listItem.push(
+            {
+              title:this.addInp,isCompleat:false
+            });
+          this.addInp = ""
+        },
+        //删除列表
+        del:function(index){
+          this.listItem.splice(index,1);
+        },
+        //添加编辑
+        addEdit:function(index){
+          this.editingIndex=index
+          this.beforeEdit = this.listItem[index].title
+        },
+        //结束编辑
+        endEdit:function(){
+          this.editingIndex=null;
+          this.beforeEdit=""
+        },
+        //终止编辑
+        goback:function(index){
+          this.listItem[index].title = this.beforeEdit
+          this.editingIndex=null;
+        },
+        //改变状态
+        change:function(v){
+          this.state=v;
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

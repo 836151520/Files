@@ -1,0 +1,27 @@
+vue.js
+    一、基本框架
+    <div id="app">
+        {{message}}
+    </div>
+    <script>
+        var app = new Vue({
+            el:"#app",
+            data:{
+                message:"hello"
+            }
+        })
+    </script>
+    二、内部指令
+        1、条件和循环
+            v-if:判断是否加载html的DOM
+            v-show:调整css中的display
+            区别：
+                1、v-if判断是否加载，可以减轻服务器的压力
+                2、v-show已经加载，使用户操作更流畅
+
+            v-for:循环渲染data中的数组，item in items (for...in)
+        2、v-text/v-html
+        3、v-on 绑定事件,@click
+        4、双向数据绑定 v-model
+            1、v-model 只能应用表单元素
+        5、绑定 v-bind 简写  :class  :style :value

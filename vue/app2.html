@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>vue内部指令</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <style>
+     .on{
+       color: red;
+     }
+  </style>
+</head>
+<body>
+  <div id="app2">
+    <span v-bind:title="message">
+      鼠标悬停几秒
+    </span><hr>
+    <p v-if="seen">现在你可以看到我了</p><hr>
+
+
+    <ol>
+      <li v-for="todo in todos">
+        {{todo.text}}
+      </li>
+    </ol><hr>
+    <div v-if="isLogin">你好，{{username}}</div><hr>
+    <div v-show="isLogin1">6666</div>
+    <button v-on:click="hide">点击试试</button><hr>
+    <ul>
+      <li v-for="item in items">
+         <h3>{{item.title}}</h3>
+         <p>{{item.time}}</p>
+         <p>{{item.content}}</p>
+      </li>
+    </ul><hr>
+    <h3>{{name}}</h3>
+    <input type="text" v-model="name"/><hr>
+    <input type="radio" value="男" v-model="sex">男
+    <input type="radio" value="女" v-model="sex">女
+    <h3>{{sex}}</h3><hr>
+    <input type="checkbox" value="游戏" v-model="like">游戏
+    <input type="checkbox" value="电影" v-model="like">电影
+    <input type="checkbox" value="小说" v-model="like">小说
+    <h3>{{like}}</h3><hr>
+    <select v-model="city">
+      <option  v-for="item in citys"  :value ="item" >{{item}}</option>
+    </select>
+    <h2 :class="{on:isSelect}">{{city}}</h2><hr>
+    <img :src="src" alt="">
+  </div>
+  <script>
+    var app2 = new Vue({
+      el:"#app2",
+      data:{
+        message:'页面加载'+new Date().toLocaleString(),
+        seen:true,
+        todos:[
+          {text:'学习v-for1'},
+          {text:'学习v-for2'},
+          {text:'学习v-for3'},
+        ],
+        isLogin:true,
+        username:"罗佳伟",
+        isLogin1:true,
+        items:[
+           {
+             title:"新闻标题",
+             time:"时间",
+             content:"shdufinweifpwboiupetr"
+           },
+           {
+             title:"新闻标题",
+             time:"时间",
+             content:"shdufinweifpwboiupetr"
+           },
+           {
+             title:"新闻标题",
+             time:"时间",
+             content:"shdufinweifpwboiupetr"
+           }
+        ],
+        name:"AAA",
+        sex:"",
+        like:[],
+        citys:["武汉","襄阳","黄冈","荆门"],
+        city:"武汉",
+        isSelect:true,
+        src:"https://cn.vuejs.org/images/logo.png"
+      },
+      methods:{
+        hide:function(){
+          this.isLogin1 = !this.isLogin1
+        }
+      }
+    })
+  </script>
+</body>
+</html>

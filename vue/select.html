@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <script src="vue.js"></script>
+    <style>
+        .on{
+            color:red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+       <select v-model="city">
+           <option v-for="item in citys" :value="item">{{item}}</option>
+       </select>
+
+       <h2 :class="{on:IsSelect}">{{city}}</h2>
+
+
+    </div>
+
+    <script>
+        var app = new Vue({
+            el:"#app",
+            data:{
+                citys:["武汉","宜昌","襄阳","荆州","黄冈"],
+                city:"武汉",
+                IsSelect:false
+            }
+        })
+
+
+    </script>
+</body>
+</html>

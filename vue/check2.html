@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="checkbox" value="电影" v-model="love" /> 电影
+        <input type="checkbox" value="游戏" v-model="love" /> 游戏
+        <input type="checkbox" value="看书" v-model="love" /> 看书
+
+        <h3>{{love}}</h3>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el:"#app",
+            data:{
+                love:[],
+                love1:{},
+                love2:'',
+                love3:0,
+                love4:false
+            }
+        })
+
+
+    </script>
+</body>
+</html>

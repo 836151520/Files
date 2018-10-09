@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <script src="vue.js"></script>
+    <style>
+        .on{
+            color:red;
+        }
+        .off{
+            color:green;
+        }
+    </style>
+</head>
+<body>
+    <div id="tabs">
+        <ul>
+            <li :class="{on:isSelect==1}" @click="tab(1)">1</li>
+            <li :class="{on:isSelect==2}" @click="tab(2)">2</li>
+            <li :class="{on:isSelect==3}" @click="tab(3)">3</li>
+        </ul>
+        <div>
+            <p v-show="isSelect == 1">1111111111111</p>
+            <p v-show="isSelect == 2">2222222222222</p>
+            <p v-show="isSelect == 3">3333333333333</p>
+        </div>
+    </div>
+
+    <script>
+        var tabs = new Vue({
+            el:"#tabs",
+            data:{
+                //当前显示第几个
+                isSelect:2,
+            },
+            methods:{
+                tab:function(index){
+                    this.isSelect = index
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <script src="vue.js"></script>
+    <style>
+        [v-cloak] {
+          display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div v-if="isLogin==1">你好，{{username}}</div>
+        <div v-else-if="isLogin==2">白金会员，你好</div>
+        <div v-else>请登录</div>
+        <h3 v-once>{{username}}</h3>
+    </div>
+
+
+    <script>
+        var app = new Vue({
+            el:"#app",
+            data:{
+                isLogin:4,
+                username:"陈桦烽11"
+            }
+        })
+    </script>
+</body>
+</html>
