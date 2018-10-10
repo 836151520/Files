@@ -36,12 +36,12 @@
 		.cart_foot .total_price{float: right;font-size: 14px; color: #666;padding: 0 20px;}
 		.cart_foot button{float: right;width: 96px;height: 50px;background: #e54346;border: 0;text-align: center;font-size: 18px;color: #fff;}
 	</style>
-	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="vue.js"></script>
 </head>
 <body>
 	<div class="cart" id="shoppCart">
 		<div class="cart_hd">
-			<div class="hd1"><input type="checkbox" name="" class="all_check"><label>全选</label></div>
+			<div class="hd1"><input type="checkbox" name="" class="all_check" @click="allCheck" v-model="isAllCheck"><label>全选</label></div>
 			<div class="hd2">商品</div>
 			<div class="hd3">单价</div>
 			<div class="hd4">数量</div>
@@ -49,25 +49,31 @@
 			<div class="hd6">操作</div>
 		</div>
 		<div class="cart_bd" >
-			<div class="shop" v-for="(item,index) in listItems">
-				<h4><input type="checkbox" id="check" class="shop_check" name="" >{{item.shopp}}</h4>
-				<div class="cart_list" v-for="(aa,index) in listItems[index].goods">
-					<div class="p1"><input type="checkbox" class="goods_check" name=""></div>
+			<div class="shop" v-for="(item,index) in listItems" @click="shopChecked(index)">
+				<h4><input type="checkbox" id="check" class="shop_check" name="" v-model="item.isShopCheck" >{{item.shopp}}</h4>
+				<div class="cart_list" v-for="(aa,index) in item.goods">
+					<div class="p1"><input type="checkbox" class="goods_check" name="" v-model="aa.isGoodsChecked"></div>
 					<div class="p2">
-						<div class="goods_img"><img src="http://placehold.it/80X80" /></div>
+						<div class="goods_img"><img :src="aa.img" /></div>
 						<div class="goods_txt">{{aa.goods_txt}}</div>
 					</div>
-					<div class="p3 price">{{aa.price}}</div>
-					<div class="p4"><button class="reduce">-</button><input type="number" name="" class="goods_num" value="1" /><button class="add">+</button></div>
-					<div class="p5 sum_price">￥229.00</div>
-					<div class="p6"><a href="javascript:;" class="del">删除</a></div>
+					<div class="p3 price" v-model="">{{aa.price | price}}</div>
+					<div class="p4">
+						<button class="reduce">-</button>
+						<input type="number" name="" class="goods_num" v-model="aa.num" />
+						<button class="add">+</button>
+					</div>
+					<div class="p5 sum_price">{{aa.price* aa.num | price}}</div>
+					<div class="p6">
+						<a href="javascript:;" class="del" @click="del(index)">删除</a>
+					</div>
 				</div>
 			</div>
 		</div>
 		<div class="cart_foot">
 			<button>去结算</button>
-			<div class="total_price">总价：<span>￥0.00</span></div>
-			<div class="total_num">已选择<span>0</span>件商品</div>
+			<div class="total_price">总价：<span>{{tomalMoney | price}</span></div>
+			<div class="total_num">已选择<span>{{tomalNum}}</span>件商品</div>
 		</div>
 	</div>
 
